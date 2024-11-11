@@ -1,0 +1,21 @@
+
+
+
+# Step 7: Create a Cloud Build Trigger
+resource "google_cloudbuild_trigger" "github_trigger" {
+  name        = "github-trigger-main-branch"
+  description = "Trigger for building and deploying when code is pushed to the main branch"
+  
+  github {
+    owner = var.github_owner
+    name  = var.github_repo
+    push {
+      branch = "main" # Only trigger on changes to the main branch
+    }
+  }
+
+  # Reference to the build configuration file (cloudbuild.yaml)
+  filename = "cloudbuild.yaml"  # Use filename attribute under `github` block
+
+  included_files = ["cloudbuild.yaml"] # Optional, only triggers when cloudbuild.yaml is updated
+}

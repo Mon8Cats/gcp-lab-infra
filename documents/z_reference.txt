@@ -1,0 +1,65 @@
+Run these configuration in the GCP project first.
+(Not from GITHUB, the CI-CD pipeline is not configured yet.)
+
+1) Enable APIs.
+2) Create Cloud Storage Bucket for Terraform backend.
+3) Create a Service Account for Cloud Build via Work Load Identity.
+4) Create a Workload Identity Pool and Provider.
+
+
+Inputs
+1) Project Id.
+2) Location.
+3) Bucket Name.
+4) Service Account Name.
+5) Workload Identity Pool Name. 
+6)
+
+
+
+git config --global user.name "Bob"
+git config --global user.email "bob@example.com"
+git config credential.username username1  -- this works!!!
+git config credential.username SteveKimMHS
+git push -u origin
+
+
+git stash 
+
+
+1) Create Secrete in GITHUB
+my_account> Settings > Developer Settings > 
+Personal access tokens > tokens (classic) >
+-> delete and create / or generate new token
+Generate new token (with existing token name)
+    name: cicd-github-token
+    expiration:
+    scopes:
+
+
+2) Create Secret -> the value is not there yet
+gcloud secrets create GITHUB_TOKEN_SECRET --replication-policy="automatic"
+
+3) Save Secret 
+echo "your-github-token" | gcloud secrets versions add GITHUB_TOKEN_SECRET --data-file=-
+-> version 1 is saved
+
+4) give cloud build service account permission
+gcloud secrets add-iam-policy-binding GITHUB_TOKEN_SECRET \
+  --project=win-gke-cicd \
+  --member="serviceAccount:service-650839457214@gcp-sa-cloudbuild.iam.gserviceaccount.com" \
+  --role="roles/secretmanager.secretAccessor"
+
+5) create connection
+# give the script execution permission
+# chmod +x create_cloud_build_connection.sh
+
+# run the script
+# ./create_cloud_build_connection.sh
+
+6) create links
+# give the script execution permission
+# chmod +x link_cloud_build_repository.sh
+
+# run the script
+# ./link_cloud_build_repository.sh
