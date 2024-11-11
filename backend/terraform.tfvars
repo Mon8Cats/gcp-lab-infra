@@ -1,4 +1,4 @@
-project_id = "win-gke-cicd"
+project_id = "mon8cats-cloud-lab"
 //project_number = "650839457214"
 project_region     = "us-central1"
 
