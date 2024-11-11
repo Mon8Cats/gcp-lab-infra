@@ -161,3 +161,23 @@ gcloud services list --enabled --project=<your-project-id>
 ```
 
 
+## Create service account 
+
+To check the roles assigned to a service account using gcloud, you can use the following commands:
+
+```bash
+gcloud iam service-accounts get-iam-policy cicd-sa@my-project.iam.gserviceaccount.com
+gcloud projects get-iam-policy [PROJECT_ID] --filter="bindings.members:[SERVICE_ACCOUNT_EMAIL]"
+gcloud projects get-iam-policy my-project-id --filter="bindings.members:cicd-sa@my-project.iam.gserviceaccount.com"
+gcloud iam roles describe [ROLE_NAME]
+
+$ gcloud projects get-iam-policy mon8cats-cloud-lab \
+    --filter="bindings.members:serviceAccount:cicd-sa@mon8cats-cloud-lab.iam.gserviceaccount.com" \
+    --format="json"
+
+```
+
+## Understanding the Difference:
+
+- **Project-Level IAM Bindings**: These are roles assigned at the project level using google_project_iam_member or google_project_iam_binding. This is what you’re seeing in the output from gcloud projects get-iam-policy.
+- **Service Account IAM Policy**: This would show roles assigned directly to the service account resource, typically done using google_service_account_iam_member or google_service_account_iam_binding.

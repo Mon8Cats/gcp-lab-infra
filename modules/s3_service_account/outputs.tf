@@ -9,3 +9,7 @@ output "service_account_id" {
   value       = google_service_account.my_sa.unique_id
 }
 
+output "assigned_roles" {
+  description = "List of roles assigned to the service account"
+  value       = var.roles
+}
