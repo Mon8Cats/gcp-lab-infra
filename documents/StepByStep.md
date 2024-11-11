@@ -75,3 +75,89 @@ project_id = "${env.PROJECT_ID}"
 region     = "${env.REGION}"
 
 ```
+
+
+It is not working. Use the following, end exclude setting form tfvars.
+
+```bash
+export TF_VAR_project_id=$(gcloud config get-value project)
+export TF_VAR_region="us-central1"
+echo $TF_VAR_project_id
+echo $TF_VAR_region
+
+```
+
+Add `cloudresourcemanager.googleapis.com`,  # Add this API first
+
+
+## What Does "Tainted" Mean?
+
+A tainted resource in Terraform is one that has been marked for re-creation. This usually happens when:
+
+1. The resource is in an inconsistent state.
+2. There was a failure during its creation or update.
+3. You explicitly tainted it using the terraform taint command.
+   
+In your case, it seems like the API enablement process for compute.googleapis.com (Compute Engine API) did not complete successfully, or there was an issue during the previous terraform apply.
+
+### Solution Steps
+
+#### Option 1: Manually Re-Run terraform apply
+
+Since Terraform is already planning to replace the tainted resource, you can proceed with:
+
+```bash
+terraform apply
+```
+
+This will attempt to re-enable the Compute Engine API (compute.googleapis.com).
+
+#### Option 2: Explicitly Untaint the Resource
+
+If you want to try to fix the issue without re-creating the resource, you can untaint it manually:
+
+```bash
+terraform untaint module.enable_apis.google_project_service.enabled_apis["compute.googleapis.com"]
+```
+Then re-run:
+
+```bash
+terraform apply
+```
+
+#### Option 3: Force Re-Create the Resource
+
+If the above steps do not work, you can force Terraform to destroy and then re-create the resource:
+
+```bash
+terraform destroy -target=module.enable_apis.google_project_service.enabled_apis["compute.googleapis.com"]
+terraform apply
+```
+
+#### Option 4: Check API Status in GCP Console
+
+Sometimes, the API may already be enabled in the Google Cloud Console, but Terraform is not aware of it. To verify:
+
+1. Go to the Google Cloud API Library in your GCP project.
+2. Search for Compute Engine API (compute.googleapis.com) and check if it is already enabled.
+3. If it is enabled, you can skip this resource from being managed by Terraform by removing it from your api_services list temporarily.
+
+
+### Troubleshooting Tips
+
+- **Ensure Permissions**: The service account running Terraform must have roles/serviceusage.serviceUsageAdmin or similar permissions to enable APIs.
+- **Check API Quotas**: You may be hitting a quota limit for enabling APIs. You can view API quotas and usage from the API Quotas Page.
+
+
+## List enabled apis
+
+```bash
+gcloud services list --enabled
+gcloud services list --available
+gcloud services disable <api-name>
+gcloud services disable compute.googleapis.com
+gcloud services list --enabled --project=<your-project-id>
+
+```
+
+

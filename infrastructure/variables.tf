@@ -3,7 +3,7 @@ variable "project_id" {
   type        = string
 }
 
-variable "project_region" {
+variable "region" {
   description = "Region in which GCP Resources to be created"
   type = string
   default = "us-east1"
@@ -15,6 +15,13 @@ variable "bucket_name" {
 }
 
 variable "api_list" {
+  type        = list(string)
+  description = "A list of APIs"
+  #default     = ["value1", "value2", "value3"]  # optional default value
+}
+
+
+variable "cicd_sa_role_list" {
   type        = list(string)
   description = "A list of APIs"
   #default     = ["value1", "value2", "value3"]  # optional default value

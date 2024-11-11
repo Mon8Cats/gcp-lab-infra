@@ -4,7 +4,7 @@ module "terraform_backend_bucket" {
   source                  = "../modules/s1_gcs_bucket"
   project_id              = var.project_id
   bucket_name             = var.bucket_name
-  location                = var.project_region  #"US", "EU", "ASIA" multi-regional bucket
+  location                = var.region  #"US", "EU", "ASIA" multi-regional bucket
   storage_class           = "STANDARD" # Nearline, Coldline, Archive
   versioning_enabled      = true
   enable_retention_policy = true
