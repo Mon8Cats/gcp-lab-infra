@@ -37,10 +37,12 @@ variable "cicd_sa_role_list" {
 
 # workload identity 
 
+/*
 variable "wi_sa_id" {
   description = "The region for the resources"
   type        = string
 }
+*/
 
 variable "wi_pool_id" {
   description = "The region for the resources"
@@ -58,17 +60,21 @@ variable "wi_pool_provider_id" {
 }
 
 
+/*
 variable "github_account" {
   description = "The GitHub Account"
   type        = string
 }
+*/
 
 variable "github_repository" {
   description = "The region for the resources"
   type        = string
 }
 
+/*
 variable "github_repo_only" {
   description = "The region for the resources"
   type        = string
 }
+*/
