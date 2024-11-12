@@ -52,6 +52,15 @@ module "secret_access" {
   service_account_email = local.cicd_service_account_email
 }
 
+
+# in cloud shell
+module "secret_access2" {
+  source               = "../modules/s5_secret_access"
+  secret_id = var.github_token_secret_id
+  service_account_email = "service-1087970471800@gcp-sa-cloudbuild.iam.gserviceaccount.com"
+  # what is this account?
+}
+
 # check 
 #  gcloud secrets get-iam-policy <secret-name> --project=<project id>
 #  terraform init -upgrade
@@ -68,4 +77,7 @@ module "github_connection" {
   region                    = var.region
   github_app_installation_id = var.github_app_installation_id
   github_token_secret       = var.github_token_secret_id
+
+  # Implicit dependency using the output value from secret_access2
+  secret_access_status = module.secret_access2.secret_access_status
 }
