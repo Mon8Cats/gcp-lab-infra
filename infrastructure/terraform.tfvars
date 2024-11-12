@@ -64,3 +64,5 @@ wi_pool_provider_id = "app-github-provider"
 github_repository      = "Mon8Cats/gcp-lab-infra"
 #github_account         = "Mon8Cats"  # Optional if needed
 #github_repo_only  = "win-gke-infra"
+
+github_token_secret_id = "github-token"

@@ -29,3 +29,20 @@ module "workloadidentity" {
   github_repository = var.github_repository
   service_account_id = "projects/${var.project_id}/serviceAccounts/${var.cicd_sa_name}@${var.project_id}.iam.gserviceaccount.com"
 }
+
+# (4) Create Cloud Build Trigger
+# (4.a) Create Github Personal Access Token (in GitHub)
+# (4.b) Store the GitHub Token in GCP Secret Manager (in Cloud Shell)
+# glcoud secrets list
+
+# (4.c) Grant the Service Account access to read this secret
+# (4.d) Create a GitHub Connection in Cloud Build
+# (4.e) Link my GitHub Repository
+# (4.f) Create a Cloud Build Trigger
+
+module "secret_access" {
+  source               = "../modules/s5_secret_access"
+  secret_id = var.github_token_secret_id
+  service_account_email = local.cicd_service_account_email
+}
+

@@ -78,3 +78,8 @@ variable "github_repo_only" {
   type        = string
 }
 */
+
+variable "github_token_secret_id" {
+  description = "The secret id for github token"
+  type        = string
+}
