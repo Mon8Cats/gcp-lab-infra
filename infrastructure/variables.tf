@@ -83,3 +83,8 @@ variable "github_token_secret_id" {
   description = "The secret id for github token"
   type        = string
 }
+
+variable "github_app_installation_id" {
+  description = "Project ID for the GCP project"
+  type        = string
+}

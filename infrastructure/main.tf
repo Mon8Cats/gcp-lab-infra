@@ -1,3 +1,9 @@
+/* No space around =
+export TF_VAR_project_id="mon8cats-cloud-lab"
+export TF_VAR_region="us-central1"
+echo $TF_VAR_project_id
+echo $TF_VAR_region
+*/
 
 # (1) enable apis
 module "enable_apis" {
@@ -46,3 +52,20 @@ module "secret_access" {
   service_account_email = local.cicd_service_account_email
 }
 
+# check 
+#  gcloud secrets get-iam-policy <secret-name> --project=<project id>
+#  terraform init -upgrade
+
+# installation id -> github > settings > application > Google Cloud Build > click configure > check url
+module "github_connection" {
+  source    = "../modules/s6_github_connection"
+  providers = {
+    google-beta = google-beta.beta
+  }
+
+  project_id                = var.project_id
+  connection_name           = "cicd-connection"
+  region                    = var.region
+  github_app_installation_id = var.github_app_installation_id
+  github_token_secret       = var.github_token_secret_id
+}

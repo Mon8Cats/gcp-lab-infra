@@ -66,3 +66,4 @@ github_repository      = "Mon8Cats/gcp-lab-infra"
 #github_repo_only  = "win-gke-infra"
 
 github_token_secret_id = "github-token"
+github_app_installation_id = "55957239"
