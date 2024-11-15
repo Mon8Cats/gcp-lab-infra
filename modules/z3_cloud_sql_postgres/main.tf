@@ -13,7 +13,3 @@ resource "google_sql_user" "sql_db_user" {
   name      = var.db_username
   password  = var.db_password
 }
-
-output "instance_connection_name" {
-  value = google_sql_database_instance.postgres_instance.connection_name
-}
