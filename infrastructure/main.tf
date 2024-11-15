@@ -62,6 +62,8 @@ module "secret_access2" {
 }
 
 
+
+/* call once 
 # Call the Secret Manager module for `db_username`
 module "secret_manager_db_user" {
   source       = "../modules/z2_secret_manager"
@@ -78,8 +80,10 @@ module "secret_manager_db_password" {
   secret_id = "db-password"
   secret_data = var.db_password
 }
+*/
 
 
+/*
 data "google_secret_manager_secret_version" "db_username" {
   secret  = module.secret_manager_db_user.secret_id
   version = "latest"
@@ -89,6 +93,19 @@ data "google_secret_manager_secret_version" "db_password" {
   secret  = module.secret_manager_db_password.secret_id
   version = "latest"
 }
+*/
+# Fetch the latest version of the existing 'db-username' secret
+data "google_secret_manager_secret_version" "db_username" {
+  secret  = "db-username"
+  version = "latest"
+}
+
+# Fetch the latest version of the existing 'db-password' secret
+data "google_secret_manager_secret_version" "db_password" {
+  secret  = "db-password"
+  version = "latest"
+}
+
 
 module "cloud_sql" {
   source        = "../modules/z3_cloud_sql_postgres"
