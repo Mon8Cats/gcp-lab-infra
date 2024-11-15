@@ -113,3 +113,10 @@ variable "db_machine_type" {
   type        = string
   sensitive = true
 }
+
+
+variable "database_name" {
+  description = "data base name"
+  type        = string
+  sensitive = true
+}

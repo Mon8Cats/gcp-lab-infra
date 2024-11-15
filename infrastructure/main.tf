@@ -96,6 +96,7 @@ data "google_secret_manager_secret_version" "db_password" {
 }
 */
 
+
 # Fetch the latest version of the existing 'db-username' secret
 data "google_secret_manager_secret_version" "db_username" {
   secret  = "db-username"
@@ -108,16 +109,24 @@ data "google_secret_manager_secret_version" "db_password" {
   version = "latest"
 }
 
-
+# first enable Cloud SQL Admin API
 module "cloud_sql" {
   source        = "../modules/z3_cloud_sql_postgres"
   db_instance_name = var.db_instance_name
-  region        = var.region
+  region        = "us-central1" #var.region
   db_machine_type  = var.db_machine_type
-  db_username   = base64decode(data.google_secret_manager_secret_version.db_username.secret_data)
-  db_password   = base64decode(data.google_secret_manager_secret_version.db_password.secret_data)
+  db_username   = data.google_secret_manager_secret_version.db_username.secret_data
+  db_password   = data.google_secret_manager_secret_version.db_password.secret_data
 }
 
+
+module "database" {
+  source         = "../modules/z4_database"
+  instance_name  = module.cloud_sql.instance_name
+  database_name  = var.database_name
+  db_username   = data.google_secret_manager_secret_version.db_username.secret_data
+  db_password   = data.google_secret_manager_secret_version.db_password.secret_data
+}
 
 
 # check 
