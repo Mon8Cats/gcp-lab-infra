@@ -24,3 +24,8 @@ variable "github_token_secret" {
   description = "Name of the GitHub token secret in Secret Manager"
   type        = string
 }
+
+variable "secret_access_status" {
+  description = "Status of secret access configuration"
+  type        = string
+}

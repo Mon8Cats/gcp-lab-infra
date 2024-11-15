@@ -88,3 +88,16 @@ variable "github_app_installation_id" {
   description = "Project ID for the GCP project"
   type        = string
 }
+
+
+variable "db_username" {
+  description = "Project ID for the GCP project"
+  type        = string
+  sensitive = true
+}
+
+variable "db_password" {
+  description = "Project ID for the GCP project"
+  type        = string
+  sensitive = true
+}

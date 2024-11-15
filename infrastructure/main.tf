@@ -61,11 +61,33 @@ module "secret_access2" {
   # what is this account?
 }
 
+
+# Call the Secret Manager module for `db_username`
+module "db_username_secret_dbuser" {
+  source       = "../modules/z1_secret_manager"
+  project_id = var.project_id
+  secret_name  = "db-username"
+  secret_id = "db-userid"
+  secret_data = var.db_username
+}
+
+module "db_username_secret_dbpassword" {
+  source       = "../modules/z1_secret_manager"
+  project_id = var.project_id
+  secret_name  = "db-password"
+  secret_id = "db-password"
+  secret_data = var.db_password
+}
+
+
+
 # check 
 #  gcloud secrets get-iam-policy <secret-name> --project=<project id>
 #  terraform init -upgrade
 
 # installation id -> github > settings > application > Google Cloud Build > click configure > check url
+
+/*
 module "github_connection" {
   source    = "../modules/s6_github_connection"
   providers = {
@@ -81,3 +103,4 @@ module "github_connection" {
   # Implicit dependency using the output value from secret_access2
   secret_access_status = module.secret_access2.secret_access_status
 }
+*/
