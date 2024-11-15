@@ -64,17 +64,17 @@ module "secret_access2" {
 
 # Call the Secret Manager module for `db_username`
 module "db_username_secret_dbuser" {
-  source       = "../modules/z1_secret_manager"
+  source       = "../modules/z2_secret_manager"
   project_id = var.project_id
-  secret_name  = "db-username"
-  secret_id = "db-userid"
+  #secret_name  = "db-username"
+  secret_id = "db-user"
   secret_data = var.db_username
 }
 
 module "db_username_secret_dbpassword" {
-  source       = "../modules/z1_secret_manager"
+  source       = "../modules/z2_secret_manager"
   project_id = var.project_id
-  secret_name  = "db-password"
+  #secret_name  = "db-password"
   secret_id = "db-password"
   secret_data = var.db_password
 }

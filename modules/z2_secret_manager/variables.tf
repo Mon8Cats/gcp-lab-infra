@@ -3,11 +3,12 @@ variable "project_id" {
   type        = string
 }
 
+/*
 variable "secret_name" {
   description = "Name of the secret in Secret Manager"
   type        = string
 }
-
+*/
 
 variable "secret_id" {
   description = "Name of the secret in Secret Manager"

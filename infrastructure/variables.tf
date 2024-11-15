@@ -45,17 +45,17 @@ variable "wi_sa_id" {
 */
 
 variable "wi_pool_id" {
-  description = "The region for the resources"
+  description = "The Workload Identity Pool Id"
   type        = string
 }
 
 variable "wi_pool_name" {
-  description = "The region for the resources"
+  description = "The Workload Identity Pool Name"
   type        = string
 }
 
 variable "wi_pool_provider_id" {
-  description = "The region for the resources"
+  description = "The Workload Identity Provider Id"
   type        = string
 }
 
@@ -85,19 +85,19 @@ variable "github_token_secret_id" {
 }
 
 variable "github_app_installation_id" {
-  description = "Project ID for the GCP project"
+  description = "GitHub App Installation Id"
   type        = string
 }
 
 
 variable "db_username" {
-  description = "Project ID for the GCP project"
+  description = "db_username for the Database"
   type        = string
   sensitive = true
 }
 
 variable "db_password" {
-  description = "Project ID for the GCP project"
+  description = "db_password for the Database"
   type        = string
   sensitive = true
 }
