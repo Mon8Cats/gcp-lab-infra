@@ -91,10 +91,10 @@ data "google_secret_manager_secret_version" "db_password" {
 }
 
 module "cloud_sql" {
-  source        = "../modules/z3_secret_manager"
-  instance_name = var.db_instance_name
+  source        = "../modules/z3_cloud_sql_postgres"
+  db_instance_name = var.db_instance_name
   region        = var.region
-  machine_type  = var.db_machine_type
+  db_machine_type  = var.db_machine_type
   db_username   = base64decode(data.google_secret_manager_secret_version.db_username.secret_data)
   db_password   = base64decode(data.google_secret_manager_secret_version.db_password.secret_data)
 }
