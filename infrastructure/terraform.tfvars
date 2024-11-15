@@ -67,3 +67,9 @@ github_repository      = "Mon8Cats/gcp-lab-infra"
 
 github_token_secret_id = "github-token"
 github_app_installation_id = "55957239"
+
+
+db_instance_name   = "my-postgres-instance"
+db_machine_type    = "db-f1-micro"
+db_username     = "mydbuser"
+db_password     = "mysecurepassword"

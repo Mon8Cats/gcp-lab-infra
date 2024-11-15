@@ -1,4 +1,4 @@
-variable "instance_name" {
+variable "db_instance_name" {
   description = "The name of the Cloud SQL instance"
   type        = string
 }
@@ -8,7 +8,7 @@ variable "region" {
   type        = string
 }
 
-variable "machine_type" {
+variable "db_machine_type" {
   description = "The machine type (e.g., db-f1-micro, db-g1-small, db-n1-standard-1)"
   type        = string
 }

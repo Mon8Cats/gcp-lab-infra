@@ -9,7 +9,7 @@ output "database_name" {
   value       = google_sql_database.my_database.name
 }
 
-output "db_user" {
+output "db_user_name" {
   description = "PostgreSQL username"
   value       = google_sql_user.db_user.name
 }

@@ -101,3 +101,15 @@ variable "db_password" {
   type        = string
   sensitive = true
 }
+
+variable "db_instance_name" {
+  description = "db instance name for the Database"
+  type        = string
+  sensitive = true
+}
+
+variable "db_machine_type" {
+  description = "db machine type for the Database"
+  type        = string
+  sensitive = true
+}

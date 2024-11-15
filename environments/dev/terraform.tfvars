@@ -25,3 +25,4 @@ master_ip_range  = "10.3.0.0/28"
 network_name = "win-vpc"
 subnet_name = "win-subnet"
 subnet_region = "us-central1"
+

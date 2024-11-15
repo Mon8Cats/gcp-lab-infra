@@ -63,7 +63,7 @@ module "secret_access2" {
 
 
 # Call the Secret Manager module for `db_username`
-module "db_username_secret_dbuser" {
+module "secret_manager_db_user" {
   source       = "../modules/z2_secret_manager"
   project_id = var.project_id
   #secret_name  = "db-username"
@@ -71,12 +71,32 @@ module "db_username_secret_dbuser" {
   secret_data = var.db_username
 }
 
-module "db_username_secret_dbpassword" {
+module "secret_manager_db_password" {
   source       = "../modules/z2_secret_manager"
   project_id = var.project_id
   #secret_name  = "db-password"
   secret_id = "db-password"
   secret_data = var.db_password
+}
+
+
+data "google_secret_manager_secret_version" "db_username" {
+  secret  = module.secret_manager_db_user.secret_id
+  version = "latest"
+}
+
+data "google_secret_manager_secret_version" "db_password" {
+  secret  = module.secret_manager_db_password.secret_id
+  version = "latest"
+}
+
+module "cloud_sql" {
+  source        = "../modules/z3_secret_manager"
+  instance_name = var.db_instance_name
+  region        = var.region
+  machine_type  = var.db_machine_type
+  db_username   = base64decode(data.google_secret_manager_secret_version.db_username.secret_data)
+  db_password   = base64decode(data.google_secret_manager_secret_version.db_password.secret_data)
 }
 
 
